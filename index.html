@@ -138,6 +138,14 @@ h2{font-family:var(--font-display);font-weight:500;font-size:clamp(1.9rem,4.4vw,
 .key h3{font-size:.92rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--indigo);margin-bottom:.5rem}
 .key p{font-size:.92rem;color:var(--muted)}
 
+/* ---------- clinic strip ---------- */
+.clinic-strip{padding:0 0 60px;background:var(--cream)}
+.strip-grid{display:grid;gap:1rem}
+@media(min-width:720px){.strip-grid{grid-template-columns:1fr 1fr}}
+.strip-grid figure{margin:0;overflow:hidden;border-radius:6px;box-shadow:var(--shadow)}
+.strip-grid img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/10;transition:transform .6s ease}
+.strip-grid figure:hover img{transform:scale(1.04)}
+
 /* ---------- offer detail ---------- */
 .offer{background:var(--indigo);color:#fff;position:relative;overflow:hidden}
 .offer .eyebrow{color:var(--gold)}
@@ -219,7 +227,12 @@ h2{font-family:var(--font-display);font-weight:500;font-size:clamp(1.9rem,4.4vw,
 
 /* ---------- faq ---------- */
 .faq{background:#fff;border-top:1px solid var(--line)}
-.faq-list{margin-top:1.5rem;display:grid;gap:.8rem;max-width:820px}
+.faq-cols{display:grid;gap:1.8rem;margin-top:1.5rem;align-items:start}
+@media(min-width:920px){.faq-cols{grid-template-columns:1.25fr .75fr}}
+.faq-list{display:grid;gap:.8rem}
+.faq-photo{margin:0;overflow:hidden;border-radius:6px;box-shadow:var(--shadow)}
+.faq-photo img{width:100%;height:100%;object-fit:cover;aspect-ratio:3/4}
+@media(max-width:919px){.faq-photo{display:none}}
 details{background:var(--cream);border:1px solid var(--line);border-radius:4px;padding:1.05rem 1.25rem}
 details summary{cursor:pointer;font-weight:700;color:var(--indigo);font-size:.98rem;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem}
 details summary::-webkit-details-marker{display:none}
@@ -373,6 +386,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
+<!-- ============ CLINIC STRIP ============ -->
+<section class="clinic-strip" aria-label="Inside the Luxe Dental Care clinic">
+  <div class="wrap strip-grid">
+    <figure class="reveal"><img src="clinic-surgery.jpg" alt="Modern treatment room at Luxe Dental Care" loading="lazy"></figure>
+    <figure class="reveal"><img src="clinic-treatment.jpg" alt="Dentist providing gentle care at Luxe Dental Care" loading="lazy"></figure>
+  </div>
+</section>
+
 <!-- ============ OFFER DETAIL ============ -->
 <section class="offer" id="offer">
   <div class="wrap">
@@ -474,7 +495,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h2>Comfortable, Personalised &amp; Affordable Care</h2>
     <p class="sub">A friendly, experienced team offering services and treatments for the whole family in a modern and relaxed environment, with a focus on family and cosmetic dentistry.</p>
     <div class="team-photo reveal">
-      <img src="team.jpg" alt="The Luxe Dental Care team at the North Melbourne clinic" loading="lazy">
+      <img src="clinic-consult.jpg" alt="Luxe Dental Care clinicians in a consultation at the North Melbourne clinic" loading="lazy">
     </div>
     <div class="team-grid">
       <div class="member reveal"><img class="headshot" src="team-vivian.jpg" alt="Vivian Lee, Founder and Oral Health Therapist at Luxe Dental Care" loading="lazy"><h3>Vivian Lee</h3><p>Founder / Oral Health Therapist</p></div>
@@ -538,6 +559,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="wrap">
     <span class="eyebrow">FAQ</span>
     <h2>Have a Question?</h2>
+    <div class="faq-cols">
     <div class="faq-list">
       <details class="reveal">
         <summary>How does the NO GAP offer work?</summary>
@@ -555,6 +577,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <summary>Do you see children?</summary>
         <p>Yes, we do dental for kids of all ages, from infants and toddlers to young children, tweens and teens, and we accept the Child Dental Benefits Schedule (CDBS) for eligible children.</p>
       </details>
+    </div>
+    <figure class="faq-photo reveal"><img src="clinic-frontdesk.jpg" alt="Front desk at Luxe Dental Care, North Melbourne" loading="lazy"></figure>
     </div>
   </div>
 </section>
