@@ -113,8 +113,18 @@ h2{font-family:var(--font-display);font-weight:500;font-size:clamp(1.9rem,4.4vw,
 /* ---------- funds ---------- */
 .funds{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:52px 0}
 .funds h2{font-size:clamp(1.7rem,3.6vw,2.3rem)}
-.fund-logos{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:1.4rem 2.2rem;margin-top:1.8rem}
-.fund-logos img{height:44px;width:auto;object-fit:contain;mix-blend-mode:multiply}
+.fund-marquee{overflow:hidden;margin-top:1.9rem;position:relative;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.fund-track{display:flex;align-items:center;gap:3.4rem;width:max-content;animation:fundscroll 36s linear infinite}
+.fund-marquee:hover .fund-track{animation-play-state:paused}
+.fund-track img{height:44px;width:auto;object-fit:contain;mix-blend-mode:multiply;filter:grayscale(1);opacity:.75;transition:filter .3s ease,opacity .3s ease}
+.fund-track img:hover{filter:none;opacity:1}
+@keyframes fundscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){
+  .fund-marquee{mask-image:none;-webkit-mask-image:none}
+  .fund-track{flex-wrap:wrap;justify-content:center;width:100%;gap:1.4rem 2.2rem;animation:none}
+  .fund-track img{filter:none;opacity:1}
+  .fund-track img:nth-child(n+14){display:none}
+}
 .funds .note{font-size:.86rem;color:var(--muted);margin-top:1.5rem;text-align:center}
 
 /* ---------- key callouts ---------- */
@@ -146,6 +156,19 @@ h2{font-family:var(--font-display);font-weight:500;font-size:clamp(1.9rem,4.4vw,
 .offer .tc{font-size:.74rem;color:#B9B5D6;margin-top:1.4rem;line-height:1.6}
 .offer-ctas{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.5rem}
 
+/* ---------- payment plans ---------- */
+.payplans{background:#fff;border-bottom:1px solid var(--line)}
+.pay-grid{display:grid;gap:1rem;margin-top:1.8rem;text-align:left}
+@media(min-width:640px){.pay-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:980px){.pay-grid{grid-template-columns:repeat(4,1fr)}}
+.pay-card{background:var(--cream);border:1px solid var(--line);border-radius:5px;padding:1.6rem 1.4rem;transition:transform .3s ease,box-shadow .3s ease}
+.pay-card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+.pay-card .pay-logo{height:40px;width:auto;object-fit:contain;margin-bottom:1rem;mix-blend-mode:multiply}
+.pay-card .pay-cards{display:flex;align-items:center;color:var(--gold)}
+.pay-card .pay-cards svg{width:40px;height:40px}
+.pay-card h3{font-size:.9rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--indigo);margin-bottom:.4rem}
+.pay-card p{font-size:.88rem;color:var(--muted)}
+
 /* ---------- location ---------- */
 .location{background:var(--cream)}
 .loc-grid{display:grid;gap:1.6rem;margin-top:1.6rem}
@@ -172,16 +195,27 @@ h2{font-family:var(--font-display);font-weight:500;font-size:clamp(1.9rem,4.4vw,
 .team-grid{display:grid;gap:1rem;grid-template-columns:repeat(2,1fr)}
 @media(min-width:860px){.team-grid{grid-template-columns:repeat(5,1fr)}}
 .member{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:6px;padding:1.2rem 1rem;text-align:center}
-.member .mono{width:44px;height:44px;margin:0 auto .7rem;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1.15rem;color:var(--gold)}
+.member{padding:0 0 1.1rem;overflow:hidden}
+.member .headshot{width:100%;aspect-ratio:3/4;object-fit:cover;margin-bottom:.85rem}
 .member h3{font-family:var(--font-display);font-weight:600;font-size:1.12rem;line-height:1.25;color:#fff}
 .member p{font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-top:.3rem}
 @media(max-width:859px){.member:last-child{grid-column:1/-1}}
 
 /* ---------- services ---------- */
 .services{background:var(--cream)}
-.svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem;margin-top:1.6rem}
-@media(min-width:760px){.svc-grid{grid-template-columns:repeat(3,1fr)}}
-.svc{background:#fff;border:1px solid var(--line);border-radius:4px;padding:1.1rem 1.2rem;font-weight:600;font-size:.94rem;color:var(--indigo)}
+.svc-grid{display:grid;gap:1rem;margin-top:1.8rem}
+@media(min-width:640px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:960px){.svc-grid{grid-template-columns:repeat(3,1fr)}}
+.svc-card{position:relative;background:#fff;border:1px solid var(--line);border-radius:5px;padding:1.7rem 1.5rem 1.5rem;text-decoration:none;display:flex;flex-direction:column;gap:.55rem;overflow:hidden;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
+.svc-card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
+.svc-card:hover{transform:translateY(-5px);box-shadow:var(--shadow);border-color:var(--gold-soft)}
+.svc-card:hover::before{transform:scaleX(1)}
+.svc-ico svg{width:38px;height:38px;color:var(--gold);transition:transform .3s ease}
+.svc-card:hover .svc-ico svg{transform:scale(1.08)}
+.svc-card h3{font-family:var(--font-display);font-weight:600;font-size:1.35rem;color:var(--indigo)}
+.svc-card p{font-size:.9rem;color:var(--muted);flex:1}
+.svc-link{font-size:.74rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--indigo);display:inline-flex;gap:.4rem;align-items:center;transition:color .25s ease,gap .25s ease}
+.svc-card:hover .svc-link{color:var(--gold);gap:.7rem}
 
 /* ---------- faq ---------- */
 .faq{background:#fff;border-top:1px solid var(--line)}
@@ -209,8 +243,25 @@ footer a{color:#CFCBE8}
 .sticky-cta .btn{flex:1;padding:.85rem .5rem;font-size:.74rem}
 @media(min-width:900px){.sticky-cta{display:none}}
 
-.reveal{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s cubic-bezier(.22,.61,.36,1),transform .65s cubic-bezier(.22,.61,.36,1)}
 .reveal.in{opacity:1;transform:none}
+.svc-grid .reveal:nth-child(2),.pay-grid .reveal:nth-child(2),.keys-grid .reveal:nth-child(2),.team-grid .reveal:nth-child(2){transition-delay:.08s}
+.svc-grid .reveal:nth-child(3),.pay-grid .reveal:nth-child(3),.keys-grid .reveal:nth-child(3),.team-grid .reveal:nth-child(3){transition-delay:.16s}
+.svc-grid .reveal:nth-child(4),.pay-grid .reveal:nth-child(4),.team-grid .reveal:nth-child(4){transition-delay:.24s}
+.svc-grid .reveal:nth-child(5),.team-grid .reveal:nth-child(5){transition-delay:.32s}
+.svc-grid .reveal:nth-child(6){transition-delay:.4s}
+.member{transition:transform .3s ease,box-shadow .3s ease}
+.member:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,.3)}
+.member .headshot{transition:transform .5s ease}
+.member:hover .headshot{transform:scale(1.04)}
+.btn{position:relative;overflow:hidden}
+.btn::after{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);transition:left .55s ease}
+.btn:hover::after{left:130%}
+.hero-photo img{transition:transform 6s ease}
+.hero-photo.in img{transform:scale(1.03)}
+.offer-price .big{background:linear-gradient(100deg,var(--gold) 30%,#EFE6C2 50%,var(--gold) 70%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:sheen 5s linear infinite}
+@keyframes sheen{to{background-position:200% center}}
+@media (prefers-reduced-motion:reduce){.offer-price .big{animation:none;background:none;-webkit-text-fill-color:var(--gold)}}
 </style>
 </head>
 <body>
@@ -265,8 +316,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <span class="eyebrow">Health Funds</span>
     <h2>We Accept All Insurance Plans</h2>
     <p class="sub">Claim on the spot with HICAPS. Can't see your fund below? Don't worry, we accept all insurance plans. Just give us a call on <a href="tel:0390416384" style="color:var(--indigo);font-weight:700">(03) 9041 6384</a>.</p>
-    <div class="fund-logos">
-      <img src="fund-hcf.png" alt="HCF More for Teeth program" loading="lazy">
+    <div class="fund-marquee" aria-label="Health funds we accept">
+      <div class="fund-track">
+        <img src="fund-hcf.png" alt="HCF More for Teeth program" loading="lazy">
       <img src="fund-medibank.png" alt="Medibank" loading="lazy">
       <img src="fund-bupa.png" alt="Bupa" loading="lazy">
       <img src="fund-nib.png" alt="nib" loading="lazy">
@@ -279,6 +331,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <img src="fund-cbhs.png" alt="CBHS Health" loading="lazy">
       <img src="fund-mbf.png" alt="mbf" loading="lazy">
       <img src="fund-hicaps.png" alt="HICAPS fast claims on the spot" loading="lazy">
+        <img src="fund-hcf.png" alt="HCF More for Teeth program" loading="lazy">
+      <img src="fund-medibank.png" alt="Medibank" loading="lazy">
+      <img src="fund-bupa.png" alt="Bupa" loading="lazy">
+      <img src="fund-nib.png" alt="nib" loading="lazy">
+      <img src="fund-ahm.png" alt="ahm Health Insurance" loading="lazy">
+      <img src="fund-australian-unity.png" alt="Australian Unity" loading="lazy">
+      <img src="fund-teachers.png" alt="Teachers Health Fund" loading="lazy">
+      <img src="fund-nrma.png" alt="NRMA Insurance" loading="lazy">
+      <img src="fund-gmhba.png" alt="GMHBA Health Insurance" loading="lazy">
+      <img src="fund-gmf.png" alt="GMF Health" loading="lazy">
+      <img src="fund-cbhs.png" alt="CBHS Health" loading="lazy">
+      <img src="fund-mbf.png" alt="mbf" loading="lazy">
+      <img src="fund-hicaps.png" alt="HICAPS fast claims on the spot" loading="lazy">
+      </div>
     </div>
     <p class="note">Onsite HICAPS facilities for instant health fund claims. We also accept the Child Dental Benefits Schedule (CDBS), Oral Health Care Vouchers, payment plans through Humm, and all major credit cards including Amex.</p>
   </div>
@@ -337,6 +403,37 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
+<!-- ============ PAYMENT PLANS ============ -->
+<section class="payplans" id="payments">
+  <div class="wrap center">
+    <span class="eyebrow">Flexible Payments</span>
+    <h2>Payment Plans &amp; Ways to Pay</h2>
+    <p class="sub">Quality dental care that fits your budget, with flexible ways to pay and claim.</p>
+    <div class="pay-grid">
+      <div class="pay-card reveal">
+        <img src="pay-humm.png" alt="Humm payment plans" class="pay-logo">
+        <h3>Humm Payment Plans</h3>
+        <p>Spread the cost of your treatment into manageable repayments with Humm.</p>
+      </div>
+      <div class="pay-card reveal">
+        <img src="fund-hicaps.png" alt="HICAPS" class="pay-logo">
+        <h3>HICAPS On the Spot</h3>
+        <p>Onsite HICAPS facilities so your health fund claim is processed instantly.</p>
+      </div>
+      <div class="pay-card reveal">
+        <img src="pay-medicare.png" alt="Medicare Child Dental Benefits Schedule" class="pay-logo">
+        <h3>CDBS &amp; Vouchers</h3>
+        <p>We accept the Child Dental Benefits Schedule (CDBS) and Oral Health Care Vouchers.</p>
+      </div>
+      <div class="pay-card reveal">
+        <div class="pay-logo pay-cards" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5.5" width="19" height="13" rx="2"/><path d="M2.5 10h19M6 14.5h4"/></svg></div>
+        <h3>All Major Cards</h3>
+        <p>We accept all major credit cards, including Amex.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ LOCATION, MAP & HOURS ============ -->
 <section class="location" id="location">
   <div class="wrap">
@@ -380,11 +477,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <img src="team.jpg" alt="The Luxe Dental Care team at the North Melbourne clinic" loading="lazy">
     </div>
     <div class="team-grid">
-      <div class="member reveal"><div class="mono">VL</div><h3>Vivian Lee</h3><p>Founder / Oral Health Therapist</p></div>
-      <div class="member reveal"><div class="mono">LI</div><h3>Dr Lina Idarraga</h3><p>Principal Dentist</p></div>
-      <div class="member reveal"><div class="mono">JR</div><h3>Dr Jessica Tatiana Rios</h3><p>Dentist</p></div>
-      <div class="member reveal"><div class="mono">CZ</div><h3>Dr Cathy Zeng</h3><p>Dentist</p></div>
-      <div class="member reveal"><div class="mono">DP</div><h3>Dr Daniel Park</h3><p>Dentist</p></div>
+      <div class="member reveal"><img class="headshot" src="team-vivian.jpg" alt="Vivian Lee, Founder and Oral Health Therapist at Luxe Dental Care" loading="lazy"><h3>Vivian Lee</h3><p>Founder / Oral Health Therapist</p></div>
+      <div class="member reveal"><img class="headshot" src="team-lina.jpg" alt="Dr Lina Idarraga, Principal Dentist at Luxe Dental Care" loading="lazy"><h3>Dr Lina Idarraga</h3><p>Principal Dentist</p></div>
+      <div class="member reveal"><img class="headshot" src="team-jessica.jpg" alt="Dr Jessica Tatiana Rios, Dentist at Luxe Dental Care" loading="lazy"><h3>Dr Jessica Tatiana Rios</h3><p>Dentist</p></div>
+      <div class="member reveal"><img class="headshot" src="team-cathy.jpg" alt="Dr Cathy Zeng, Dentist at Luxe Dental Care" loading="lazy"><h3>Dr Cathy Zeng</h3><p>Dentist</p></div>
+      <div class="member reveal"><img class="headshot" src="team-daniel.jpg" alt="Dr Daniel Park, Dentist at Luxe Dental Care" loading="lazy"><h3>Dr Daniel Park</h3><p>Dentist</p></div>
     </div>
   </div>
 </section>
@@ -395,12 +492,43 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <span class="eyebrow">Complete Care</span>
     <h2>Dentistry for the Whole Family</h2>
     <div class="svc-grid">
-      <div class="svc reveal">General Dentistry</div>
-      <div class="svc reveal">Dentistry for Children</div>
-      <div class="svc reveal">Teeth Whitening</div>
-      <div class="svc reveal">Invisible Braces</div>
-      <div class="svc reveal">Crowns &amp; Bridges</div>
-      <div class="svc reveal">Dental Implants</div>
+      <a class="svc-card reveal" href="https://luxedentalcare.com.au/general-dentistry/">
+        <div class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21c-1-2.5-2-3.5-2-6 0-1.2-.6-2-1.8-2C6.4 13 5 11.4 5 9c0-2.8 2-5 4.5-5 1 0 1.8.3 2.5.9.7-.6 1.5-.9 2.5-.9C17 4 19 6.2 19 9c0 2.4-1.4 4-3.2 4-1.2 0-1.8.8-1.8 2 0 2.5-1 3.5-2 6z"/></svg></div>
+        <h3>General Dentistry</h3>
+        <p>Examinations, cleans and all general dentistry, including restorations, fillings and extractions.</p>
+        <span class="svc-link">See our services <span aria-hidden="true">&rarr;</span></span>
+      </a>
+      <a class="svc-card reveal" href="https://luxedentalcare.com.au/dentistry-for-children/">
+        <div class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 10h.01M15.5 10h.01M8 14.5c1 1.2 2.4 1.8 4 1.8s3-.6 4-1.8"/></svg></div>
+        <h3>Dentistry for Children</h3>
+        <p>Gentle dental care for kids of all ages, from infants and toddlers to tweens and teens.</p>
+        <span class="svc-link">See our services <span aria-hidden="true">&rarr;</span></span>
+      </a>
+      <a class="svc-card reveal" href="https://luxedentalcare.com.au/teeth-whitening/">
+        <div class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21c-1-2.5-2-3.5-2-6 0-1.2-.6-2-1.8-2C6.4 13 5 11.4 5 9c0-2.8 2-5 4.5-5 1 0 1.8.3 2.5.9.7-.6 1.5-.9 2.5-.9C17 4 19 6.2 19 9c0 2.4-1.4 4-3.2 4-1.2 0-1.8.8-1.8 2 0 2.5-1 3.5-2 6z"/><path d="M18.5 2.6l.4 1.1 1.1.4-1.1.4-.4 1.1-.4-1.1-1.1-.4 1.1-.4z"/></svg></div>
+        <h3>Teeth Whitening</h3>
+        <p>Leave our practice with an instantly brighter, more confident smile.</p>
+        <span class="svc-link">See our services <span aria-hidden="true">&rarr;</span></span>
+      </a>
+      <a class="svc-card reveal" href="https://luxedentalcare.com.au/invisible-braces/">
+        <div class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12c0-4 3.5-7 8-7s8 3 8 7-3.5 7-8 7-8-3-8-7z"/><path d="M7 12h10M9.5 9.5v5M14.5 9.5v5"/></svg></div>
+        <h3>Invisible Braces</h3>
+        <p>SmileStyler aligners let you invisibly straighten your teeth without anyone knowing.</p>
+        <span class="svc-link">See our services <span aria-hidden="true">&rarr;</span></span>
+      </a>
+      <a class="svc-card reveal" href="https://luxedentalcare.com.au/dental-crowns-and-bridges/">
+        <div class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 16l1.5-8L10 11l2-5 2 5 3.5-3L19 16z"/><path d="M5 16h14v2H5z"/></svg></div>
+        <h3>Crowns &amp; Bridges</h3>
+        <p>A thorough examination first, with a crown or bridge only if required.</p>
+        <span class="svc-link">See our services <span aria-hidden="true">&rarr;</span></span>
+      </a>
+      <a class="svc-card reveal" href="https://luxedentalcare.com.au/dental-implants/">
+        <div class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M9 3c0 3-1 4-1 7h8c0-3-1-4-1-7M8.5 10l.7 3h5.6l.7-3M10 13l.6 3h2.8l.6-3M11.2 16l.8 5 .8-5"/></svg></div>
+        <h3>Dental Implants</h3>
+        <p>A proven, long-term solution for replacing missing teeth and restoring your smile.</p>
+        <span class="svc-link">See our services <span aria-hidden="true">&rarr;</span></span>
+      </a>
+    </div>
     </div>
   </div>
 </section>
